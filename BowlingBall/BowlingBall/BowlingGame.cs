@@ -17,47 +17,57 @@ namespace BowlingBall
         {
             get
             {
-                List<int> _tempPins = new List<int>();
-
                 int result = 0;
-
-                for (int i = 0; i < _pinsStore.Count; i++)
+                for (int frame = 0; frame < _pinsStore.Count; frame++)
                 {
-                    _tempPins.Add(_pinsStore[i]);
-
-                    if (_pinsStore[i] == 10)
+                    if (IsStrike(frame))
                     {
-                        _tempPins.Add(0);
+                        result += 10 + StrikeBonus(frame);
                     }
-                }
-
-                for (int i = 0; i < _tempPins.Count; i++)
-                {
-                    if (_tempPins[i] == 10 && i - 2 >= 0)
+                    else if (IsSpare(frame))
                     {
-                        result += _tempPins[i] + 
-                                  _tempPins[i - 1] +
-                                  _tempPins[i - 2];
+                        result += 10 + SpareBonus(frame);
+                        frame++;
                     }
-                    else
-                        result += _tempPins[i];
+                    else if (IsNormal(frame))
+                        result += NormalScore(frame);
                 }
 
                 return result; 
             }
         }
-    }
 
-    public class CalculationException : Exception
-    {
-        public CalculationException()
+        private bool IsNormal(int frame)
         {
-
+            return _pinsStore[frame] < 10;
         }
 
-        public CalculationException(string errorMsg) : base(errorMsg)
+        private bool IsStrike(int frame)
         {
+            return _pinsStore[frame] == 10 && 
+                   frame + 2 < _pinsStore.Count;
+        }
 
+        private bool IsSpare(int frame)
+        {
+            return frame + 2 < _pinsStore.Count &&
+                   _pinsStore[frame] +
+                   _pinsStore[frame + 1] == 10;
+        }
+
+        private int SpareBonus(int frame)
+        {
+            return _pinsStore[frame + 2];
+        }
+
+        private int NormalScore(int frame)
+        {
+            return _pinsStore[frame];
+        }
+
+        private int StrikeBonus(int frame)
+        {
+            return  _pinsStore[frame + 1] + _pinsStore[frame + 2];
         }
     }
 }

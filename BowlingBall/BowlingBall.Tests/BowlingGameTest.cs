@@ -25,11 +25,10 @@ namespace BowlingBall.Tests
             Assert.AreEqual(expectScore, game.Score);
         }
 
-        [TestCase(new [] { 8, 2, 8, 1, 5, 5 },29)]
-        [TestCase(new [] { 10, 10, 10 }, 60)]
-        [TestCase(new [] { 10, 10 }, 30)]
-        [TestCase(new[]  { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 }, 300)]
-        public void PinNormal_Scores_is_29(int[] pins,int expectScore)
+        [TestCase(new[] { 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 60)]
+        [TestCase(new[] { 10, 10 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 30)]
+        [TestCase(new[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ,10 }, 300)]
+        public void Strike_Scores(int[] pins, int expectScore)
         {
             BowlingGame game = new BowlingGame();
 
@@ -38,8 +37,36 @@ namespace BowlingBall.Tests
                 game.Roll(pin);
             }
 
-            Assert.AreEqual(expectScore,game.Score);
+            Assert.AreEqual(expectScore, game.Score);
         }
 
+        [TestCase(new[] {8, 1, 8, 1, 4, 5, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 34)]
+        [TestCase(new[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 20)]
+        public void Normal_Scores(int[] pins, int expectScore)
+        {
+            BowlingGame game = new BowlingGame();
+
+            foreach (var pin in pins)
+            {
+                game.Roll(pin);
+            }
+
+            Assert.AreEqual(expectScore, game.Score);
+        }
+
+
+        [TestCase(new[] { 5, 5, 5, 5, 4, 5, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 45)]
+        [TestCase(new[] { 5, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 16)]
+        public void Spare_Scores(int[] pins, int expectScore)
+        {
+            BowlingGame game = new BowlingGame();
+
+            foreach (var pin in pins)
+            {
+                game.Roll(pin);
+            }
+
+            Assert.AreEqual(expectScore, game.Score);
+        }
     }
 }

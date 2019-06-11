@@ -25,6 +25,7 @@ namespace BowlingBall.Tests
             Assert.AreEqual(expectScore, game.Score);
         }
 
+
         [TestCase(new[] { 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 60)]
         [TestCase(new[] { 10, 10 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 30)]
         [TestCase(new[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ,10 }, 300)]
@@ -57,6 +58,7 @@ namespace BowlingBall.Tests
 
         [TestCase(new[] { 5, 5, 5, 5, 4, 5, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 45)]
         [TestCase(new[] { 5, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 16)]
+        [TestCase(new[] { 5, 5, 8, 2, 6, 4, 7, 3, 7, 3, 9, 1, 5, 5, 8, 2, 9, 1, 9, 1,10 }, 178)]
         public void Spare_Scores(int[] pins, int expectScore)
         {
             BowlingGame game = new BowlingGame();
